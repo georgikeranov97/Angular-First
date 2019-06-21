@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <th>Post ID</th>
+        <th>User ID</th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Actions</th>
+    </tr>
+    <tr *ngFor="let item of items">
+        <td>{{item.id}}</td>
+        <td>{{item.userId}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.body}}</td>
+        <td>
+            <button>Details</button>
+            <button>Edit</button>
+            <button (click)="deleteItem(item)" [id]="item.id">Delete</button>
+        </td>
+    </tr>
+</table>
+<p>Table</p>
