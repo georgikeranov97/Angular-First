@@ -1,4 +1,5 @@
-<table>
+<button>Add Post</button>
+<table *ngIf="items">
     <tr>
         <th>Post ID</th>
         <th>User ID</th>
@@ -7,10 +8,10 @@
         <th>Actions</th>
     </tr>
     <tr *ngFor="let item of items">
-        <td>{{item.id}}</td>
-        <td>{{item.userId}}</td>
-        <td>{{item.title}}</td>
-        <td>{{item.body}}</td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.userId }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.body }}</td>
         <td>
             <button>Details</button>
             <button>Edit</button>

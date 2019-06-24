@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../../post';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 @Component({
     selector: 'app-index',
@@ -12,9 +14,11 @@ import { Post } from '../../post';
 
 export class IndexComponent implements OnInit {
     items: Post[] = [];
+    name = new FormControl('');
 
     constructor( 
         private httpClient: HttpClient,
+        private activatedRoute: ActivatedRoute,
     ) { }
     ngOnInit(){
         this.httpClient.get('https://jsonplaceholder.typicode.com/posts')
@@ -30,19 +34,15 @@ export class IndexComponent implements OnInit {
             this.items = res;
             console.log(this.items);
         });
+
+        this.activatedRoute.params.subscribe(params=>{
+            console.log(params);
+        });
     }
     
     deleteItem(item) {
         item = event.target;
-        var id = item.attributes['id'].value;
-        console.log(event.target);
-        console.log(id);
-        console.log(this.items);
-        console.log(this.items[id - 1]);
-       
-        // this.items.filter((id) => {
-
-        // })
-        // return this.httpClient.delete('https://jsonplaceholder.typicode.com/posts/' + id);
+        const chislo = +(item.attributes['id'].value);
+        this.items = this.items.filter(item => item.id !== chislo);
     }
 }
