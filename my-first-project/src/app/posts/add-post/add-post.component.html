@@ -1,7 +1,17 @@
-<!-- <label>
-    Name:
-    <input type="text" [formControl]="name">
-</label> -->
-<p>
-  add-post page
-</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <label>
+        Title:
+        <input type="text" formControlName="title" />
+    </label>
+    <label>
+      Body:
+      <textarea type="text" formControlName="body"></textarea>
+    </label>
+      
+    <p>
+      Value: {{ profileForm.value | json }}
+    </p>
+    <button (click)="addNewPost()">
+      click
+    </button>
+</form>
