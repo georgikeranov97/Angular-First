@@ -13,8 +13,8 @@
         <td>{{ item.title }}</td>
         <td>{{ item.body }}</td>
         <td>
-            <button>Details</button>
-            <button>Edit</button>
+            <button [routerLink]="'details/' + item.id">Details</button>
+            <button [routerLink]="'edit/' + item.id">Edit</button>
             <button (click)="deleteItem(item)" [id]="item.id">Delete</button>
         </td>
     </tr>

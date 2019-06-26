@@ -1,0 +1,22 @@
+<!-- <section *ngIf="item" style="text-align:center">
+    <h1>Details page</h1>
+    <p>Item ID: <strong>{{ item.id }}</strong> </p>
+    <p>User ID: <strong>{{ item.userId }}</strong></p>
+    <p>Title: {{ item.title }}</p>
+    <p>Body: {{ item.body }}</p>
+</section> -->
+<form [formGroup]="profileForm">
+  <label>
+    Edit title:
+    <input type="text" formControlName="title" />
+  </label>
+  <label>
+    Edit body:
+    <textarea type="text" formControlName="body"></textarea>
+  </label>
+</form>
+
+<p>Value {{ profileForm.value | json }}</p>
+<button>
+  Edit
+</button>
