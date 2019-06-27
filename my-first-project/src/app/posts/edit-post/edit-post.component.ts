@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/post';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
 
@@ -12,10 +12,10 @@ import { map } from 'rxjs/internal/operators';
 })
 export class EditPostComponent implements OnInit {
   item: Post;
-
+  
   profileForm = new FormGroup({
-    title: new FormControl(''),
-    body: new FormControl(''),
+    title: new FormControl('', Validators.compose([Validators.required, Validators.minLength(4)])),
+    body: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
   })
 
   constructor(
@@ -30,12 +30,21 @@ export class EditPostComponent implements OnInit {
       return new Post(res)
     }))
     .subscribe((res: Post) => {
+      console.log(res);
       this.item = res;
     });
   }
 
+  onSubmit() {
+    console.warn(this.profileForm.value);
+    console.warn(this.profileForm.value.title);
+    console.warn(this.profileForm.value.body);
+  }
+
   editPost() {
-    
+    const returnedTarget = Object.assign(this.item, this.profileForm.value);
+    console.log(returnedTarget);
+    return returnedTarget;
   }
 
 }

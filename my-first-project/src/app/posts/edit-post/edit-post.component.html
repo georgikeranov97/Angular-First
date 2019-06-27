@@ -5,7 +5,7 @@
     <p>Title: {{ item.title }}</p>
     <p>Body: {{ item.body }}</p>
 </section> -->
-<form [formGroup]="profileForm">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
   <label>
     Edit title:
     <input type="text" formControlName="title" />
@@ -14,9 +14,15 @@
     Edit body:
     <textarea type="text" formControlName="body"></textarea>
   </label>
+  
+  <p>Value {{ profileForm.value | json }}</p>
+  <button (click)="editPost()">
+    Edit
+  </button>
+
+  <!-- <div *ngIf="body.invalid">
+    More symbols are required!
+  </div> -->
 </form>
 
-<p>Value {{ profileForm.value | json }}</p>
-<button>
-  Edit
-</button>
+
