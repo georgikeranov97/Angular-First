@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../post';
 import { map } from 'rxjs/internal/operators';
 
@@ -14,11 +14,11 @@ export class DetailsPostComponent implements OnInit {
   
   constructor(
     private httpClient: HttpClient,
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    const id = this.router.url.split('/')[3];
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.httpClient.get('https://jsonplaceholder.typicode.com/posts/' + id)
     .pipe(map((res:any) => {
       return new Post(res)

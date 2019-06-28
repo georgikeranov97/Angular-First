@@ -12,17 +12,21 @@
   </label>
   <label>
     Edit body:
-    <textarea type="text" formControlName="body"></textarea>
+    <textarea type="text" formControlName="body" required></textarea>
+    <!-- <div *ngIf="body.errors.required">
+      Body is required
+    </div> -->
   </label>
   
   <p>Value {{ profileForm.value | json }}</p>
-  <button (click)="editPost()">
-    Edit
+  <button (click)="editPost() ; redirectToPostsPage()">
+    Update
+  </button>
+  
+  <button (click)="redirectToPostsPage()">
+    Cancel
   </button>
 
-  <!-- <div *ngIf="body.invalid">
-    More symbols are required!
-  </div> -->
 </form>
 
 
