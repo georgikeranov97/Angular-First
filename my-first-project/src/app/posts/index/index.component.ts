@@ -15,12 +15,14 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 export class IndexComponent implements OnInit {
     items: Post[] = [];
     name = new FormControl('');
+    loading = false;
 
     constructor( 
         private httpClient: HttpClient,
         private activatedRoute: ActivatedRoute,
     ) { }
     ngOnInit(){
+        this.loading = true;
         this.httpClient.get('https://jsonplaceholder.typicode.com/posts')
         .pipe(map((res:any) => {
             let items = [];
@@ -33,6 +35,7 @@ export class IndexComponent implements OnInit {
         .subscribe((res: Post[]) => {
             this.items = res;
             console.log(this.items);
+            this.loading = false;
         });
 
         this.activatedRoute.params.subscribe(params=>{
@@ -41,8 +44,14 @@ export class IndexComponent implements OnInit {
     }
     
     deleteItem(item) {
+        this.loading = true;
         item = event.target;
-        const chislo = +(item.attributes['id'].value);
-        this.items = this.items.filter(item => item.id !== chislo);
+        const itemId = +(item.attributes['id'].value);
+        return this.httpClient.delete('https://jsonplaceholder.typicode.com/posts/' + itemId)
+        .subscribe((s) => {
+            console.log(s);
+            console.log(this.items);
+            this.loading = false;
+        });
     }
 }

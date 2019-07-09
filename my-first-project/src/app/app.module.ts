@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +11,8 @@ import { IndexComponent } from './posts/index/index.component';
 import { HttpClient } from '@angular/common/http';
 import { PostsModule } from './posts/posts.module';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,11 @@ import { PostsModule } from './posts/posts.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    PostsModule
+    PostsModule,
+    NgxSpinnerModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,8 @@
 <button [routerLink]="'add'">Add Post</button>
+
+<img *ngIf="loading" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+
+<p *ngIf="requestIsDone">Loading ....</p>
 <table *ngIf="items">
     <tr>
         <th>Post ID</th>
@@ -19,4 +23,5 @@
         </td>
     </tr>
 </table>
+
 <p>Table</p>

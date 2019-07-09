@@ -18,7 +18,7 @@ export class AddPostComponent implements OnInit {
   })
 
   item: Post;
-
+  loading = false;
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -32,6 +32,7 @@ export class AddPostComponent implements OnInit {
   }
 
   addNewPost() {
+    this.loading = true;
     const userId = Math.ceil(Math.random() * 10 + 10);
     this.httpClient.post('https://jsonplaceholder.typicode.com/posts/', {...this.profileForm.value, userId})
     .pipe(map((res: any) => {
@@ -40,6 +41,7 @@ export class AddPostComponent implements OnInit {
       console.log(res);
       this.item = res;
       this.router.navigateByUrl('/posts');
+      this.loading = false;
     });
 
   }

@@ -11,13 +11,14 @@ import { map } from 'rxjs/internal/operators';
 })
 export class DetailsPostComponent implements OnInit {
   item: Post;
-  
+  loading = false;
   constructor(
     private httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.httpClient.get('https://jsonplaceholder.typicode.com/posts/' + id)
     .pipe(map((res:any) => {
@@ -25,6 +26,7 @@ export class DetailsPostComponent implements OnInit {
     }))
     .subscribe((res: Post) => {
       this.item = res;
+      this.loading = false;
     });
   }
 }

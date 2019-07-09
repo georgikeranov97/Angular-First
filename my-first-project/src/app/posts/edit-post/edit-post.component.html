@@ -1,55 +1,54 @@
-<!-- <section *ngIf="item" style="text-align:center">
-    <h1>Details page</h1>
+<section *ngIf="item" style="text-align:center">
+    <h1>Edit page</h1>
     <p>Item ID: <strong>{{ item.id }}</strong> </p>
     <p>User ID: <strong>{{ item.userId }}</strong></p>
     <p>Title: {{ item.title }}</p>
     <p>Body: {{ item.body }}</p>
-</section> -->
+</section>
+
+<img *ngIf="loading" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <label>
-    Edit title:
-    <input type="text" formControlName="title" />
-  </label>
-  <label>
-    Edit body:
-    <textarea type="text" formControlName="body"></textarea>
-
-    {{  profileForm.controls.body?.errors | json }}
-    <!-- <div *ngIf="profileForm.controls.body.errors.required">
-      Body is required
-    </div> -->
-    <div *ngIf="profileForm.controls.body.invalid && (profileForm.controls.body.dirty || profileForm.controls.body.touched)">
-
-      <div *ngIf="profileForm.controls.body.errors.required">
-        Body is required.
-      </div>
-
-      <div *ngIf="profileForm.controls.body.errors.minlength">
-        Body must be at least 6 characters long.
-      </div>
-
+  <div>
+    <label>
+      Edit title:
+      <input type="text" formControlName="title" />
+    </label>
+    <div *ngIf="profileForm.dirty && profileForm.controls.title.errors">
+      <div *ngIf="profileForm.controls.title.errors.required" style="color: red">Title is required!</div>
+      <div *ngIf="profileForm.controls.title.errors.minlength" style="color: red">Title must be at least 4 characters!</div>
     </div>
-
-    <div *ngIf="profileForm.controls.title.invalid && (profileForm.controls.title.dirty || profileForm.controls.title.touched)">
-      <div *ngIf="profileForm.controls.title.errors.required">
-        Title is required.
-      </div>
-
-      <div *ngIf="profileForm.controls.title.errors.minlength">
-        Title must be at least 4 characters long.
-      </div>
-    </div>
-
-  </label>
+  </div>
   
+  <div>
+    <label>
+      Edit body:
+      <textarea type="text" formControlName="body"></textarea>
+
+    </label>
+    <div *ngIf="profileForm.dirty && profileForm.controls.body.invalid">
+      <div *ngIf="profileForm.controls.body.errors.required" style="color: red">Body is required!</div>
+      <div *ngIf="profileForm.controls.body.errors.minlenght" style="color: red">Body must be at least 6 characters!</div>
+    </div>
+  </div>
+
   <p>Value {{ profileForm.value | json }}</p>
   <button>
     Update
   </button>
 
-  <button type="button">
+  <button (click)="redirectToPostsPage()">
     Cancel
   </button>
+
+  <section *ngIf="formSubmit" style="text-align:center">
+    <h1>Edit page</h1>
+    <p>Item ID: <strong>{{ item.id }}</strong> </p>
+    <p>User ID: <strong>{{ item.userId }}</strong></p>
+    <p>Title: {{ item.title }}</p>
+    <p>Body: {{ item.body }}</p>
+  </section>
+
 
 </form>
 

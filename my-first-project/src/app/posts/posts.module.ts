@@ -6,6 +6,7 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetailsPostComponent } from './details-post/details-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
@@ -14,7 +15,10 @@ import { EditPostComponent } from './edit-post/edit-post.component';
       CommonModule,
       PostsRoutingModule,
       ReactiveFormsModule,
-    ]
+    ],
+    schemas: [
+      CUSTOM_ELEMENTS_SCHEMA,
+    ],
   })
 
 export class PostsModule { }
