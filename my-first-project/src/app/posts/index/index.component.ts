@@ -1,10 +1,9 @@
 import { map } from 'rxjs/internal/operators';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { Post } from '../../post';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
 
 @Component({
     selector: 'app-index',
@@ -14,15 +13,13 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 export class IndexComponent implements OnInit {
     items: Post[] = [];
-    name = new FormControl('');
-    loading = false;
+    @ViewChild('loader', {static:true}) loader: LoaderComponent;
 
     constructor( 
-        private httpClient: HttpClient,
-        private activatedRoute: ActivatedRoute,
+        private httpClient: HttpClient
     ) { }
     ngOnInit(){
-        this.loading = true;
+        this.loader.showLoading = true;
         this.httpClient.get('https://jsonplaceholder.typicode.com/posts')
         .pipe(map((res:any) => {
             let items = [];
@@ -34,24 +31,15 @@ export class IndexComponent implements OnInit {
         }))
         .subscribe((res: Post[]) => {
             this.items = res;
-            console.log(this.items);
-            this.loading = false;
-        });
-
-        this.activatedRoute.params.subscribe(params=>{
-            console.log(params);
+            this.loader.showLoading = false;
         });
     }
     
-    deleteItem(item) {
-        this.loading = true;
-        item = event.target;
-        const itemId = +(item.attributes['id'].value);
-        return this.httpClient.delete('https://jsonplaceholder.typicode.com/posts/' + itemId)
-        .subscribe((s) => {
-            console.log(s);
-            console.log(this.items);
-            this.loading = false;
+    deleteItem(item: Post) {
+        this.loader.showLoading = true;
+        return this.httpClient.delete('https://jsonplaceholder.typicode.com/posts/' + item.id)
+        .subscribe(() => {
+            this.loader.showLoading = false;
         });
     }
 }

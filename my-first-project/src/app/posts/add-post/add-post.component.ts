@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Post } from '../../post';
-import { map } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators';
+
+import { Post } from '../../post';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
 
 @Component({
   selector: 'app-add-post',
@@ -11,38 +13,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-post.component.sass']
 })
 
-export class AddPostComponent implements OnInit {
-  profileForm = new FormGroup({
-    title: new FormControl(''),
-    body: new FormControl(''),
+export class AddPostComponent {
+  @ViewChild('loader', {static: true}) loader: LoaderComponent;
+
+  profileForm = this.formBuilder.group({
+    title: '',
+    body: ''
   })
 
-  item: Post;
-  loading = false;
   constructor(
     private httpClient: HttpClient,
     private router: Router,
+    private formBuilder: FormBuilder,
   ) { }
 
-  ngOnInit() {
-  }
-
   onSubmit() {
-    console.warn(this.profileForm.value);
-  }
+    this.loader.showLoading = true;
 
-  addNewPost() {
-    this.loading = true;
     const userId = Math.ceil(Math.random() * 10 + 10);
     this.httpClient.post('https://jsonplaceholder.typicode.com/posts/', {...this.profileForm.value, userId})
     .pipe(map((res: any) => {
         return new Post(res);
-    })).subscribe((res: Post) => {
-      console.log(res);
-      this.item = res;
+    }))
+    .subscribe((res: Post) => {
+      this.loader.showLoading = false;
       this.router.navigateByUrl('/posts');
-      this.loading = false;
     });
-
   }
 }

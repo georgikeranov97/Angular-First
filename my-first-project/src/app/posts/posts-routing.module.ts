@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { IndexComponent } from './index/index.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { DetailsPostComponent } from './details-post/details-post.component';

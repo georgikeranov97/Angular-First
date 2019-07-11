@@ -1,4 +1,4 @@
-<img *ngIf="loading" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+<app-loader #loader></app-loader>
 
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <label>
@@ -13,7 +13,7 @@
     <p>
       Value: {{ profileForm.value | json }}
     </p>
-    <button (click)="addNewPost()">
+    <button>
       Add Post
     </button>
 </form>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { Post } from '../../post';
 import { map } from 'rxjs/internal/operators';
+
+import { Post } from '../../post';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
 
 @Component({
   selector: 'app-details-post',
@@ -11,14 +13,15 @@ import { map } from 'rxjs/internal/operators';
 })
 export class DetailsPostComponent implements OnInit {
   item: Post;
-  loading = false;
+  @ViewChild('loader', {static: true}) loader: LoaderComponent;
+
   constructor(
     private httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.loading = true;
+    this.loader.showLoading = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.httpClient.get('https://jsonplaceholder.typicode.com/posts/' + id)
     .pipe(map((res:any) => {
@@ -26,7 +29,7 @@ export class DetailsPostComponent implements OnInit {
     }))
     .subscribe((res: Post) => {
       this.item = res;
-      this.loading = false;
+      this.loader.showLoading = false;
     });
   }
 }

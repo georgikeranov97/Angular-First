@@ -1,27 +1,28 @@
 <button [routerLink]="'add'">Add Post</button>
 
-<img *ngIf="loading" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
-
-<p *ngIf="requestIsDone">Loading ....</p>
-<table *ngIf="items">
-    <tr>
-        <th>Post ID</th>
-        <th>User ID</th>
-        <th>Title</th>
-        <th>Body</th>
-        <th>Actions</th>
-    </tr>
-    <tr *ngFor="let item of items">
-        <td>{{ item.id }}</td>
-        <td>{{ item.userId }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.body }}</td>
-        <td>
-            <button [routerLink]="'details/' + item.id">Details</button>
-            <button [routerLink]="'edit/' + item.id">Edit</button>
-            <button (click)="deleteItem(item)" [id]="item.id">Delete</button>
-        </td>
-    </tr>
-</table>
-
+<app-loader #loader></app-loader>
 <p>Table</p>
+<table *ngIf="items">
+    <thead>
+        <tr>
+            <th>Post ID</th>
+            <th>User ID</th>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of items">
+            <td>{{ item.id }}</td>
+            <td>{{ item.userId }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.body }}</td>
+            <td>
+                <button [routerLink]="'details/' + item.id">Details</button>
+                <button [routerLink]="'edit/' + item.id">Edit</button>
+                <button (click)="deleteItem(item)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

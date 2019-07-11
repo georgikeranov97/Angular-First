@@ -1,36 +1,24 @@
-<section *ngIf="item" style="text-align:center">
-    <h1>Edit page</h1>
-    <p>Item ID: <strong>{{ item.id }}</strong> </p>
-    <p>User ID: <strong>{{ item.userId }}</strong></p>
-    <p>Title: {{ item.title }}</p>
-    <p>Body: {{ item.body }}</p>
-</section>
-
-<img *ngIf="loading" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+<app-loader #loader></app-loader>
 
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
   <div>
     <label>
-      Edit title:
+      Title:
       <input type="text" formControlName="title" />
     </label>
-    <div *ngIf="profileForm.dirty && profileForm.controls.title.errors">
-      <div *ngIf="profileForm.controls.title.errors.required" style="color: red">Title is required!</div>
-      <div *ngIf="profileForm.controls.title.errors.minlength" style="color: red">Title must be at least 4 characters!</div>
-    </div>
+    <app-control-errors [control]="profileForm.controls.title" [controlName]="'Title'"></app-control-errors>
   </div>
   
   <div>
     <label>
-      Edit body:
+      Body:
       <textarea type="text" formControlName="body"></textarea>
 
     </label>
-    <div *ngIf="profileForm.dirty && profileForm.controls.body.invalid">
-      <div *ngIf="profileForm.controls.body.errors.required" style="color: red">Body is required!</div>
-      <div *ngIf="profileForm.controls.body.errors.minlenght" style="color: red">Body must be at least 6 characters!</div>
-    </div>
+    <app-control-errors [control]="profileForm.controls.body" [controlName]="'Body'"></app-control-errors>
   </div>
+
+  <input type="hidden" formControlName="userId" />
 
   <p>Value {{ profileForm.value | json }}</p>
   <button>
@@ -40,16 +28,4 @@
   <button (click)="redirectToPostsPage()">
     Cancel
   </button>
-
-  <section *ngIf="formSubmit" style="text-align:center">
-    <h1>Edit page</h1>
-    <p>Item ID: <strong>{{ item.id }}</strong> </p>
-    <p>User ID: <strong>{{ item.userId }}</strong></p>
-    <p>Title: {{ item.title }}</p>
-    <p>Body: {{ item.body }}</p>
-  </section>
-
-
 </form>
-
-

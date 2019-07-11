@@ -1,0 +1,4 @@
+<div *ngIf="control.dirty && control.errors">
+  <div *ngIf="control.errors.required" style="color: red">{{ controlName }} is required!</div>
+  <div *ngIf="control.errors.minlength" style="color: red">{{ controlName }} must be at least {{ control.errors.minlength.requiredLength }} characters!</div>
+</div>

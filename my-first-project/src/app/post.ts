@@ -1,5 +1,3 @@
-// import { PassThrough } from 'stream';
-
 export class Post {
     id: number;
     userId: number;
